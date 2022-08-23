@@ -1,7 +1,10 @@
 <?php
-$lat = $_GET['lat'];
-$lon = $_GET['lon'];
+$input = json_decode(file_get_contents("php://input"), true);
 
+$dev = "true";
+
+$lat = $input['lat'];
+$lon = $input['lon'];
 if(empty($lat)){
     $lat = "33.450701";
     $lon = "126.570667";
@@ -88,6 +91,10 @@ $data8 = explode('">',$data8);
 $data8 = $data8[1];
 $data8 = explode('</',$data8);
 $data8 = $data8[0];
+
+if($dev == "true"){
+    $_SERVER['REMOTE_ADDR'] = "180.81.34.231";
+}
 
 if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
     $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
